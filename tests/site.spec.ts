@@ -1,7 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-const pages = ['', 'en/', 'projetos/cobratec-360/', 'projetos/api-dm/', 'en/projects/eric-mac/', 'projetos/cobratec-negocia/', 'fora-do-expediente/', 'en/off-the-clock/'];
+const pages = ['', 'en/', 'projetos/cobratec-360/', 'projetos/api-dm/', 'en/projects/eric-mac/', 'projetos/cobratec-negocia/'];
 const viewports = [
   { width: 375, height: 812 },
   { width: 768, height: 1024 },
@@ -31,7 +31,7 @@ test.describe('layout responsivo', () => {
   for (const vp of viewports) {
     test(`sem rolagem horizontal em ${vp.width}px`, async ({ page }) => {
       await page.setViewportSize(vp);
-      for (const path of ['', 'en/', 'projetos/cobratec-360/', 'fora-do-expediente/']) {
+      for (const path of ['', 'en/', 'projetos/cobratec-360/']) {
         await page.goto(path);
         await noHorizontalScroll(page);
       }
@@ -81,16 +81,6 @@ test('troca de idioma leva à mesma página no outro idioma', async ({ page }) =
   await page.goto('projetos/api-dm/');
   await page.getByRole('link', { name: 'Read in English' }).click();
   await expect(page).toHaveURL(/\/portfolio\/en\/projects\/api-dm\/$/);
-  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-});
-
-test('botão arcade do hero leva ao Fora do expediente, que troca de idioma', async ({ page }) => {
-  await page.goto('');
-  await page.locator('.hero').getByRole('link', { name: /Fora do expediente/ }).click();
-  await expect(page).toHaveURL(/\/portfolio\/fora-do-expediente\/$/);
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('expediente');
-  await page.getByRole('link', { name: 'Read in English' }).click();
-  await expect(page).toHaveURL(/\/portfolio\/en\/off-the-clock\/$/);
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
 });
 

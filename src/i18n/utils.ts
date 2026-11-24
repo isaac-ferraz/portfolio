@@ -36,16 +36,11 @@ export const homePath = (lang: Lang) => url(lang === defaultLang ? '/' : `/${lan
 export const projectPath = (slug: string, lang: Lang) =>
   url(lang === defaultLang ? `/projetos/${slug}/` : `/${lang}/projects/${slug}/`);
 
-/** Página "Fora do expediente" (quem eu sou fora do trabalho). */
-export const offClockPath = (lang: Lang) =>
-  url(lang === defaultLang ? '/fora-do-expediente/' : `/${lang}/off-the-clock/`);
-
 /** Mesma página no outro idioma (para o botão PT/EN e o hreflang). */
 export function alternatePath(u: URL, to: Lang): string {
   const rest = u.pathname.slice(BASE.length);
   const proj = rest.match(/^\/(?:en\/projects|projetos)\/([^/]+)\/?$/);
   if (proj?.[1]) return projectPath(proj[1], to);
-  if (/^\/(?:fora-do-expediente|en\/off-the-clock)\/?$/.test(rest)) return offClockPath(to);
   return homePath(to);
 }
 

@@ -12,10 +12,6 @@ Uma página única com rolagem coreografada, em sete seções numeradas no estil
 **Sobre**, **Jornada**, **Skills**, **Projetos** (profissionais, acadêmicos e
 pessoais), **Formação**, **Eventos** e **Contato**. Cada projeto tem também uma página própria.
 
-Um botão de fliperama no hero leva à página **Fora do expediente**
-(`/fora-do-expediente/`, em inglês `/en/off-the-clock/`): quem eu sou fora do trabalho,
-como uma tela de seleção de fases de arcade.
-
 | Seção | No desktop | No celular/tablet |
 | --- | --- | --- |
 | Hero | Nome entrando letra a letra (só CSS), personagem recortado e balões que se afastam com o scroll; a retícula segue o mouse | Personagem acima do nome, mesma entrada |
@@ -79,10 +75,9 @@ src/
   assets/hero/         personagem recortado e busto do mascote
   assets/projects/     imagens de cada projeto
   assets/events/       fotos dos eventos (uma pasta por evento)
-  assets/off/          fotos da página Fora do expediente
   components/          seções da home, cards, página de detalhe, mascote, lightbox
   content/projects/    um YAML bilíngue por projeto
-  data/                perfil, jornada, habilidades, formação, eventos, fases do Fora do expediente
+  data/                perfil, jornada, habilidades, formação, eventos
   i18n/                textos de interface e utilitários de rota
   pages/               rotas PT, EN e imagens OG
   scripts/site.ts      comportamento leve de todas as páginas
