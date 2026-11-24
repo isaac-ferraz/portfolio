@@ -7,12 +7,13 @@ import { Resvg } from '@resvg/resvg-js';
 import { ui } from '~/i18n/ui';
 import type { Lang } from '~/i18n/utils';
 
-/** Imagens Open Graph (1200×630) geradas no build: uma por idioma e por projeto. */
+/** Imagens Open Graph (1200×630) geradas no build: uma por idioma, por projeto e pela página Fora do expediente. */
 
 export const getStaticPaths = (async () => {
   const projects = await getCollection('projects');
   return (['pt', 'en'] as const).flatMap((lang) => [
     { params: { lang, slug: 'index' }, props: { lang, project: null } },
+    { params: { lang, slug: 'fora-do-expediente' }, props: { lang, project: null, offClock: true } },
     ...projects.map((p) => ({ params: { lang, slug: p.id }, props: { lang, project: p } })),
   ]);
 }) satisfies GetStaticPaths;
@@ -37,15 +38,19 @@ const h = (type: string, style: Record<string, unknown>, ...children: unknown[])
 });
 
 export const GET: APIRoute = async ({ props }) => {
-  const { lang, project } = props as { lang: Lang; project: Awaited<ReturnType<typeof getCollection<'projects'>>>[number] | null };
+  const { lang, project, offClock = false } = props as {
+    lang: Lang;
+    project: Awaited<ReturnType<typeof getCollection<'projects'>>>[number] | null;
+    offClock?: boolean;
+  };
   const [serifItalic, serif, bangers] = await fontsP;
   const bust = await bustP;
   const t = ui[lang];
 
   const accent = project?.data.accent ?? '#ffd23f';
-  const kicker = project ? project.data.kicker[lang] : t['hero.eyebrow'];
-  const title = project ? project.data.title : 'Isaac Ferraz';
-  const sub = project ? project.data.tagline[lang] : t['hero.lead'].replace(/\*/g, '');
+  const kicker = project ? project.data.kicker[lang] : offClock ? t['off.eyebrow'] : t['hero.eyebrow'];
+  const title = project ? project.data.title : offClock ? `${t['off.title']} ${t['off.accent']}` : 'Isaac Ferraz';
+  const sub = project ? project.data.tagline[lang] : offClock ? t['off.lead'] : t['hero.lead'].replace(/\*/g, '');
 
   const tree = h(
     'div',

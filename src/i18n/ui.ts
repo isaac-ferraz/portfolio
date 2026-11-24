@@ -8,9 +8,9 @@ export const defaultLang: Lang = 'pt';
  */
 export const ui = {
   pt: {
-    'meta.title': 'Isaac Ferraz — Desenvolvedor Full-Stack',
+    'meta.title': 'Isaac Ferraz — Desenvolvedor Full-Stack & Engenheiro de IA',
     'meta.description':
-      'Portfólio de Isaac Ferraz de Oliveira, desenvolvedor full-stack júnior em São José dos Campos. Sistemas em produção, dados e automação — projetos profissionais, acadêmicos e pessoais.',
+      'Portfólio de Isaac Ferraz de Oliveira, desenvolvedor full-stack e engenheiro de IA em São José dos Campos. Sistemas em produção, LLMs, NLP e automação no setor financeiro — projetos profissionais, acadêmicos e pessoais.',
     'skip': 'Pular para o conteúdo',
     'nav.label': 'Navegação principal',
     'nav.about': 'Sobre',
@@ -18,6 +18,7 @@ export const ui = {
     'nav.tools': 'Skills',
     'nav.projects': 'Projetos',
     'nav.education': 'Formação',
+    'nav.events': 'Eventos',
     'nav.contact': 'Contato',
     'nav.menu': 'Menu',
     'nav.close': 'Fechar menu',
@@ -26,7 +27,7 @@ export const ui = {
     'lang.switch': 'Read in English',
     'lang.short': 'EN',
 
-    'hero.eyebrow': 'Desenvolvedor Full-Stack · São José dos Campos, SP',
+    'hero.eyebrow': 'Full-Stack & Engenheiro de IA · São José dos Campos, SP',
     'hero.first': 'Isaac',
     'hero.last': 'Ferraz',
     'hero.lead':
@@ -35,6 +36,9 @@ export const ui = {
     'hero.cta.contact': 'Falar comigo',
     'hero.scroll': 'Role para ver a história',
     'hero.status': 'Estagiário de desenvolvimento na Cobratec',
+    'hero.arcade.kicker': 'Player 2 · Press start',
+    'hero.arcade.label': 'Fora do expediente',
+    'hero.arcade.sr': 'quem eu sou fora do trabalho',
     'hero.bubble1': 'Bug fixed!',
     'hero.bubble2': 'Deployment complete!',
     'hero.bubble3': 'Sleep. Code. Repeat.',
@@ -50,7 +54,7 @@ export const ui = {
     'about.fact2.k': 'Estudando',
     'about.fact2.v': 'ADS · FATEC São José dos Campos',
     'about.fact3.k': 'Foco',
-    'about.fact3.v': 'Full-stack, dados e automação com IA',
+    'about.fact3.v': 'Full-stack, LLMOps e NLP · automação no setor financeiro',
     'about.fact4.k': 'Também',
     'about.fact4.v': 'Product Owner de projetos internos',
 
@@ -60,7 +64,8 @@ export const ui = {
 
     'tools.title': 'Skills',
     'tools.accent': 'técnicas',
-    'tools.intro': 'O que eu sei fazer para levar uma ideia do planejamento ao deploy — e mantê-la funcionando depois.',
+    'tools.intro': 'O que eu sei fazer para levar uma ideia — de um fluxo com LLM a um sistema inteiro — do planejamento ao deploy, e mantê-la funcionando depois.',
+    'tools.roles': 'Cargos',
 
     'projects.title': 'Projetos',
     'projects.accent': 'em três capítulos',
@@ -127,6 +132,12 @@ export const ui = {
     'edu.done': 'Concluído',
     'edu.ongoing': 'Em andamento',
 
+    'events.title': 'Eventos',
+    'events.accent': 'de 2026',
+    'events.intro': 'Onde fui ouvir — e testar ao vivo — quem está construindo o futuro da IA e do setor financeiro.',
+    'events.badge': 'Credencial',
+    'events.photos': 'Fotos do evento',
+
     'contact.title': 'Contato',
     'contact.headline': 'Vamos construir algo que as pessoas *lembrem*.',
     'contact.text':
@@ -150,16 +161,35 @@ export const ui = {
     'mascot.academic': 'Feito em equipe, na FATEC.',
     'mascot.personal': 'Esses eu fiz por gosto.',
     'mascot.education': 'Sempre estudando!',
+    'mascot.events': 'Sempre na primeira fila!',
     'mascot.contact': 'Bora conversar?',
 
     'notfound.title': 'Página não encontrada',
     'notfound.text': 'Esse link não leva a lugar nenhum — mas o resto do portfólio leva.',
     'notfound.home': 'Ir para o início',
+
+    'off.meta.title': 'Fora do expediente — Isaac Ferraz',
+    'off.meta.description':
+      'Quem o Isaac Ferraz é fora do trabalho: servir à igreja, um ano no IC College, uma passagem pela marcenaria e o Corinthians.',
+    'off.back': 'Voltar ao portfólio',
+    'off.hud.player': '1UP · Isaac',
+    'off.hud.stage': 'Fase: fora do expediente',
+    'off.hud.credits': 'Créditos: ∞',
+    'off.eyebrow': 'Player 2 · Ready?',
+    'off.title': 'Fora do',
+    'off.accent': 'expediente',
+    'off.lead': 'O código fica no notebook. Isto aqui é o que vem junto comigo para todo lugar.',
+    'off.stages': 'Fases',
+    'off.stage': 'Fase',
+    'off.bonus': 'Bônus',
+    'off.continue': 'Continue?',
+    'off.continue.text': 'Agora que você conhece o player 2, que tal voltar para o modo carreira?',
+    'off.contact': 'Falar comigo',
   },
   en: {
-    'meta.title': 'Isaac Ferraz — Full-Stack Developer',
+    'meta.title': 'Isaac Ferraz — Full-Stack Developer & AI Engineer',
     'meta.description':
-      'Portfolio of Isaac Ferraz de Oliveira, junior full-stack developer in São José dos Campos, Brazil. Production systems, data and automation — professional, academic and personal projects.',
+      'Portfolio of Isaac Ferraz de Oliveira, full-stack developer and AI engineer in São José dos Campos, Brazil. Production systems, LLMs, NLP and finance-sector automation — professional, academic and personal projects.',
     'skip': 'Skip to content',
     'nav.label': 'Main navigation',
     'nav.about': 'About',
@@ -167,6 +197,7 @@ export const ui = {
     'nav.tools': 'Skills',
     'nav.projects': 'Projects',
     'nav.education': 'Education',
+    'nav.events': 'Events',
     'nav.contact': 'Contact',
     'nav.menu': 'Menu',
     'nav.close': 'Close menu',
@@ -175,7 +206,7 @@ export const ui = {
     'lang.switch': 'Ler em português',
     'lang.short': 'PT',
 
-    'hero.eyebrow': 'Full-Stack Developer · São José dos Campos, Brazil',
+    'hero.eyebrow': 'Full-Stack & AI Engineer · São José dos Campos, Brazil',
     'hero.first': 'Isaac',
     'hero.last': 'Ferraz',
     'hero.lead': 'I build systems that ship to *production* — and that real people *use* every day.',
@@ -183,6 +214,9 @@ export const ui = {
     'hero.cta.contact': 'Get in touch',
     'hero.scroll': 'Scroll for the story',
     'hero.status': 'Software development intern at Cobratec',
+    'hero.arcade.kicker': 'Player 2 · Press start',
+    'hero.arcade.label': 'Off the clock',
+    'hero.arcade.sr': 'who I am outside work',
     'hero.bubble1': 'Bug fixed!',
     'hero.bubble2': 'Deployment complete!',
     'hero.bubble3': 'Sleep. Code. Repeat.',
@@ -198,7 +232,7 @@ export const ui = {
     'about.fact2.k': 'Studying',
     'about.fact2.v': 'Systems Analysis & Dev. · FATEC SJC',
     'about.fact3.k': 'Focus',
-    'about.fact3.v': 'Full-stack, data and AI automation',
+    'about.fact3.v': 'Full-stack, LLMOps & NLP · finance automation',
     'about.fact4.k': 'Also',
     'about.fact4.v': 'Product Owner for internal projects',
 
@@ -208,7 +242,8 @@ export const ui = {
 
     'tools.title': 'Technical',
     'tools.accent': 'skills',
-    'tools.intro': 'What I know to take an idea from planning to deployment — and keep it running afterwards.',
+    'tools.intro': 'What I know to take an idea — from an LLM workflow to a whole system — from planning to deployment, and keep it running afterwards.',
+    'tools.roles': 'Roles',
 
     'projects.title': 'Projects',
     'projects.accent': 'in three chapters',
@@ -275,6 +310,12 @@ export const ui = {
     'edu.done': 'Completed',
     'edu.ongoing': 'In progress',
 
+    'events.title': 'Events',
+    'events.accent': 'of 2026',
+    'events.intro': 'Where I went to listen to — and test live — the people building the future of AI and the finance sector.',
+    'events.badge': 'Badge',
+    'events.photos': 'Event photos',
+
     'contact.title': 'Contact',
     'contact.headline': "Let's build something people *remember*.",
     'contact.text':
@@ -298,11 +339,30 @@ export const ui = {
     'mascot.academic': 'Built as a team at FATEC.',
     'mascot.personal': 'These I built for fun.',
     'mascot.education': 'Always learning!',
+    'mascot.events': 'Front row, always!',
     'mascot.contact': "Let's talk?",
 
     'notfound.title': 'Page not found',
     'notfound.text': "This link leads nowhere — but the rest of the portfolio does.",
     'notfound.home': 'Go home',
+
+    'off.meta.title': 'Off the clock — Isaac Ferraz',
+    'off.meta.description':
+      'Who Isaac Ferraz is outside work: serving at church, a year at IC College, a stint in carpentry and Corinthians.',
+    'off.back': 'Back to the portfolio',
+    'off.hud.player': '1UP · Isaac',
+    'off.hud.stage': 'Stage: off the clock',
+    'off.hud.credits': 'Credits: ∞',
+    'off.eyebrow': 'Player 2 · Ready?',
+    'off.title': 'Off the',
+    'off.accent': 'clock',
+    'off.lead': 'The code stays on the laptop. This is what comes with me everywhere.',
+    'off.stages': 'Stages',
+    'off.stage': 'Stage',
+    'off.bonus': 'Bonus',
+    'off.continue': 'Continue?',
+    'off.continue.text': 'Now that you have met player 2, how about going back to career mode?',
+    'off.contact': 'Get in touch',
   },
 } as const;
 

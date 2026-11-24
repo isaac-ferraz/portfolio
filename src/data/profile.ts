@@ -83,7 +83,53 @@ export const journey: JourneyStep[] = [
 
 export type SkillGroup = { title: L; items: (string | L)[] };
 
+/** Cargos do LinkedIn — títulos em inglês nos dois idiomas. `accent` destaca o setor. */
+export const roles: { label: string; accent?: boolean }[] = [
+  { label: 'LLMOps Engineer' },
+  { label: 'AI Data Analyst' },
+  { label: 'AI Solutions Architect' },
+  { label: 'NLP Engineer' },
+  { label: 'Automation in the Finance Sector', accent: true },
+];
+
 export const skills: SkillGroup[] = [
+  {
+    title: { pt: 'LLMOps & IA generativa', en: 'LLMOps & generative AI' },
+    items: [
+      'LLMOps',
+      { pt: 'Agentes de IA', en: 'AI agents' },
+      'Tool calling',
+      'MCP (Model Context Protocol)',
+      { pt: 'Evals de LLMs', en: 'LLM evals' },
+      { pt: 'Observabilidade de LLMs', en: 'LLM observability' },
+      { pt: 'Engenharia de prompts', en: 'Prompt engineering' },
+      'Claude',
+      { pt: 'Ollama (LLMs locais)', en: 'Ollama (local LLMs)' },
+    ],
+  },
+  {
+    title: { pt: 'NLP & dados com IA', en: 'NLP & AI data' },
+    items: [
+      'NLP',
+      { pt: 'Classificação de intenções', en: 'Intent classification' },
+      { pt: 'Classificação de texto', en: 'Text classification' },
+      { pt: 'Extração de entidades (NER)', en: 'Named-entity recognition (NER)' },
+      { pt: 'Análise de sentimento', en: 'Sentiment analysis' },
+      { pt: 'Transcrição de voz (STT)', en: 'Speech-to-text (STT)' },
+      { pt: 'Análise de dados com IA', en: 'AI-assisted data analysis' },
+      'pandas',
+    ],
+  },
+  {
+    title: { pt: 'Automação no setor financeiro', en: 'Finance-sector automation' },
+    items: [
+      'n8n',
+      { pt: 'Automação de cobrança', en: 'Collections automation' },
+      'Chatbots',
+      'WhatsApp Cloud API',
+      { pt: 'Relatórios automatizados', en: 'Automated reporting' },
+    ],
+  },
   { title: { pt: 'Linguagens', en: 'Languages' }, items: ['Python', 'Java', 'TypeScript', 'JavaScript', 'SQL', 'PHP', 'Bash'] },
   {
     title: { pt: 'Front-end', en: 'Front-end' },
@@ -91,11 +137,7 @@ export const skills: SkillGroup[] = [
   },
   {
     title: { pt: 'Back-end & dados', en: 'Back-end & data' },
-    items: ['API REST', 'Node.js', 'FastAPI', 'Flask', 'PostgreSQL', 'MySQL', 'SQLite', 'Prisma', 'pandas'],
-  },
-  {
-    title: { pt: 'IA & automação', en: 'AI & automation' },
-    items: ['Claude', 'n8n', { pt: 'Ollama (LLMs locais)', en: 'Ollama (local LLMs)' }, { pt: 'Engenharia de prompts', en: 'Prompt engineering' }, 'Chatbots', 'WhatsApp Cloud API'],
+    items: ['API REST', 'Node.js', 'FastAPI', 'Flask', 'PostgreSQL', 'MySQL', 'SQLite', 'Prisma'],
   },
   {
     title: { pt: 'DevOps & qualidade', en: 'DevOps & quality' },
@@ -109,8 +151,8 @@ export const skills: SkillGroup[] = [
 
 /** Linhas dos marquees (decorativas — o conteúdo acessível é a grade de habilidades). */
 export const marqueeRows = [
-  ['Next.js', 'TypeScript', 'Python', 'Java', 'PostgreSQL', 'React', 'FastAPI', 'Docker', 'n8n', 'Claude'],
-  ['pandas', 'API REST', 'DevOps', 'Tailwind', 'Linux', 'Ollama', 'Flask', 'MySQL', 'Prisma', 'SQL'],
+  ['LLMOps', 'Python', 'AI Agents', 'Next.js', 'NLP', 'TypeScript', 'MCP', 'PostgreSQL', 'n8n', 'Claude'],
+  ['Evals', 'FastAPI', 'Tool calling', 'pandas', 'Ollama', 'Docker', 'Prompt engineering', 'React', 'Speech-to-text', 'SQL'],
 ];
 
 export const education = {

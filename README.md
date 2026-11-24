@@ -1,25 +1,30 @@
 # Portfólio — Isaac Ferraz de Oliveira
 
-Portfólio de desenvolvedor full-stack, estudante de **Análise e Desenvolvimento de
-Sistemas** na **FATEC São José dos Campos — Prof. Jessen Vidal** (RA 1460482611003).
+Portfólio de desenvolvedor full-stack e engenheiro de IA (LLMOps, NLP e automação no
+setor financeiro), estudante de **Análise e Desenvolvimento de Sistemas** na **FATEC São José dos Campos — Prof. Jessen Vidal** (RA 1460482611003).
 
 - **No ar:** <https://isaac-ferraz.github.io/portfolio/> (PT-BR) · <https://isaac-ferraz.github.io/portfolio/en/> (EN)
 - A versão anterior, em estilo Windows XP / Frutiger Aero e sem JavaScript, continua no histórico do git (até o commit `cb38054`).
 
 ## O que tem aqui
 
-Uma página única com rolagem coreografada, em seis seções numeradas no estilo de HQ:
-**Sobre**, **Jornada**, **Ferramentas**, **Projetos** (profissionais, acadêmicos e
-pessoais), **Formação** e **Contato**. Cada projeto tem também uma página própria.
+Uma página única com rolagem coreografada, em sete seções numeradas no estilo de HQ:
+**Sobre**, **Jornada**, **Skills**, **Projetos** (profissionais, acadêmicos e
+pessoais), **Formação**, **Eventos** e **Contato**. Cada projeto tem também uma página própria.
+
+Um botão de fliperama no hero leva à página **Fora do expediente**
+(`/fora-do-expediente/`, em inglês `/en/off-the-clock/`): quem eu sou fora do trabalho,
+como uma tela de seleção de fases de arcade.
 
 | Seção | No desktop | No celular/tablet |
 | --- | --- | --- |
 | Hero | Nome entrando letra a letra (só CSS), personagem recortado e balões que se afastam com o scroll; a retícula segue o mouse | Personagem acima do nome, mesma entrada |
 | Sobre | Manifesto fixado; as palavras acendem com o scroll | Acendem com o scroll, sem fixar |
 | Jornada | Caminho em SVG que se desenha passando por seis quadrinhos | Linha vertical que se preenche |
-| Ferramentas | Letreiros cuja velocidade e inclinação seguem o scroll + grade de habilidades | Um letreiro + grade |
+| Skills | Faixa com os cargos do LinkedIn, letreiros cuja velocidade e inclinação seguem o scroll + grade de habilidades (IA primeiro) | Um letreiro + grade |
 | Profissionais | Trilho horizontal fixado, com snap, contador e barra de progresso | Carrossel nativo com `scroll-snap` |
 | Acadêmicos e Pessoais | Grade escalonada, reveal e tilt no hover | Uma coluna |
+| Eventos | Cada evento é um ingresso (canhoto picotado + tira de polaroids); a foto abre no lightbox | Canhoto vira faixa no topo; fotos em carrossel com `scroll-snap` |
 
 Um mascote no canto acompanha a leitura: a fala muda a cada seção e o clique leva à próxima.
 
@@ -73,9 +78,11 @@ npm run test:e2e   # Playwright + axe (rodar depois do build)
 src/
   assets/hero/         personagem recortado e busto do mascote
   assets/projects/     imagens de cada projeto
+  assets/events/       fotos dos eventos (uma pasta por evento)
+  assets/off/          fotos da página Fora do expediente
   components/          seções da home, cards, página de detalhe, mascote, lightbox
   content/projects/    um YAML bilíngue por projeto
-  data/                perfil, jornada, habilidades, formação
+  data/                perfil, jornada, habilidades, formação, eventos, fases do Fora do expediente
   i18n/                textos de interface e utilitários de rota
   pages/               rotas PT, EN e imagens OG
   scripts/site.ts      comportamento leve de todas as páginas

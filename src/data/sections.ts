@@ -10,5 +10,6 @@ export const sections: { id: string; nav?: UIKey; mascot: UIKey }[] = [
   { id: 'academic', mascot: 'mascot.academic' },
   { id: 'personal', mascot: 'mascot.personal' },
   { id: 'education', nav: 'nav.education', mascot: 'mascot.education' },
+  { id: 'events', nav: 'nav.events', mascot: 'mascot.events' },
   { id: 'contact', nav: 'nav.contact', mascot: 'mascot.contact' },
 ];

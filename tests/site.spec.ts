@@ -1,7 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-const pages = ['', 'en/', 'projetos/cobratec-360/', 'projetos/api-dm/', 'en/projects/eric-mac/', 'projetos/cobratec-negocia/'];
+const pages = ['', 'en/', 'projetos/cobratec-360/', 'projetos/api-dm/', 'en/projects/eric-mac/', 'projetos/cobratec-negocia/', 'fora-do-expediente/', 'en/off-the-clock/'];
 const viewports = [
   { width: 375, height: 812 },
   { width: 768, height: 1024 },
@@ -31,7 +31,7 @@ test.describe('layout responsivo', () => {
   for (const vp of viewports) {
     test(`sem rolagem horizontal em ${vp.width}px`, async ({ page }) => {
       await page.setViewportSize(vp);
-      for (const path of ['', 'en/', 'projetos/cobratec-360/']) {
+      for (const path of ['', 'en/', 'projetos/cobratec-360/', 'fora-do-expediente/']) {
         await page.goto(path);
         await noHorizontalScroll(page);
       }
@@ -82,4 +82,37 @@ test('troca de idioma leva à mesma página no outro idioma', async ({ page }) =
   await page.getByRole('link', { name: 'Read in English' }).click();
   await expect(page).toHaveURL(/\/portfolio\/en\/projects\/api-dm\/$/);
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+});
+
+test('botão arcade do hero leva ao Fora do expediente, que troca de idioma', async ({ page }) => {
+  await page.goto('');
+  await page.locator('.hero').getByRole('link', { name: /Fora do expediente/ }).click();
+  await expect(page).toHaveURL(/\/portfolio\/fora-do-expediente\/$/);
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('expediente');
+  await page.getByRole('link', { name: 'Read in English' }).click();
+  await expect(page).toHaveURL(/\/portfolio\/en\/off-the-clock\/$/);
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+});
+
+test('eventos: a foto abre no lightbox da home e fecha com Esc', async ({ page }) => {
+  // Sem movimento: o clique não pode ser a interação que carrega o GSAP no meio
+  // da página (os pins mudariam o layout com o lightbox aberto).
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('');
+  const opener = page.locator('#events [data-enlarge]').first();
+  await opener.click();
+  await expect(page.locator('[data-lightbox]')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('[data-lightbox]')).toBeHidden();
+  await expect(opener).toBeFocused();
+});
+
+test('link com âncora para a home cai na seção certa mesmo com os pins', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('#contact');
+  await page.waitForFunction(() => document.documentElement.classList.contains('motion-on'));
+  await page.waitForTimeout(1500);
+  const top = await page.locator('#contact').evaluate((el) => el.getBoundingClientRect().top);
+  expect(top).toBeGreaterThanOrEqual(-10);
+  expect(top).toBeLessThan(200);
 });

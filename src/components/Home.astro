@@ -7,7 +7,9 @@ import Journey from './Journey.astro';
 import Tools from './Tools.astro';
 import Projects from './Projects.astro';
 import Education from './Education.astro';
+import Events from './Events.astro';
 import Contact from './Contact.astro';
+import Lightbox from './Lightbox.astro';
 import Mascot from './Mascot.astro';
 import { useTranslations, type Lang } from '~/i18n/utils';
 
@@ -25,7 +27,9 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
     <Tools lang={lang} />
     <Projects lang={lang} projects={projects} />
     <Education lang={lang} />
+    <Events lang={lang} />
     <Contact lang={lang} />
   </div>
   <Mascot lang={lang} slot="after" />
+  <Lightbox lang={lang} slot="after" />
 </Base>

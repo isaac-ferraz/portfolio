@@ -47,7 +47,27 @@ export function init() {
 
   // Medidas só ficam certas depois das fontes e da imagem do hero.
   const heroImg = $<HTMLImageElement>('[data-hero-art] img');
-  Promise.all([document.fonts.ready, heroImg?.decode().catch(() => {})]).then(() => ScrollTrigger.refresh());
+  // Chegou por um link com âncora (ex.: /#contact): os pins acabaram de inserir
+  // espaçadores acima do alvo, então o salto do navegador ficou no lugar errado.
+  // Refaz o salto depois do refresh — a não ser que a pessoa já tenha mexido.
+  let touched = false;
+  const touch = () => { touched = true; };
+  const inputs = ['wheel', 'touchmove', 'keydown', 'pointerdown'] as const;
+  inputs.forEach((e) => addEventListener(e, touch, { passive: true, once: true }));
+  Promise.all([document.fonts.ready, heroImg?.decode().catch(() => {})]).then(() => {
+    ScrollTrigger.refresh();
+    inputs.forEach((e) => removeEventListener(e, touch));
+    const target = location.hash.length > 1 ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+    // Só numa navegação nova: no voltar/recarregar, o navegador restaura a posição da pessoa.
+    const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
+    if (!target || touched || (nav && nav.type !== 'navigate')) return;
+    if (lenis) {
+      lenis.resize(); // o Lenis guarda a altura da página de antes dos pins
+      lenis.scrollTo(target, { offset: headerOffset(), immediate: true, force: true });
+    } else {
+      window.scrollTo({ top: target.getBoundingClientRect().top + scrollY + headerOffset(), behavior: 'instant' });
+    }
+  });
   addEventListener('pageshow', (e) => { if (e.persisted) ScrollTrigger.refresh(); });
 }
 

@@ -1,6 +1,6 @@
 ---
 import SectionHeading from './SectionHeading.astro';
-import { marqueeRows, skills } from '~/data/profile';
+import { marqueeRows, roles, skills } from '~/data/profile';
 import { pick, pickText, useTranslations, type Lang } from '~/i18n/utils';
 
 interface Props { lang: Lang }
@@ -11,6 +11,9 @@ const t = useTranslations(lang);
 <section class="section tools" id="tools" aria-labelledby="tools-title" data-section="tools">
   <div class="wrap">
     <SectionHeading num="03" id="tools-title" title={t('tools.title')} accent={t('tools.accent')} intro={t('tools.intro')} />
+    <ul class="roles" role="list" aria-label={t('tools.roles')} data-reveal>
+      {roles.map((r) => <li class:list={['role', r.accent && 'is-accent']} lang="en">{r.label}</li>)}
+    </ul>
   </div>
 
   <!-- Decorativo: o mesmo conteúdo está na grade abaixo. -->
@@ -43,6 +46,25 @@ const t = useTranslations(lang);
 </section>
 
 <style>
+  /* Faixa de cargos: crachás de HQ, levemente tortos. */
+  .roles {
+    display: flex; flex-wrap: wrap; gap: 0.9rem 0.8rem;
+    margin: calc(-1 * clamp(1rem, 0.5rem + 2vw, 2.5rem)) 0 clamp(2rem, 1rem + 3vw, 3.5rem);
+  }
+  .role {
+    font-family: var(--font-comic); font-size: clamp(1.05rem, 0.9rem + 0.7vw, 1.5rem);
+    letter-spacing: 0.05em; text-transform: uppercase; line-height: 1;
+    padding: 0.6em 0.9em 0.5em; border: var(--border); border-radius: 10px;
+    background: var(--surface); color: var(--ink); box-shadow: 4px 4px 0 var(--line-strong);
+    rotate: -1.2deg;
+  }
+  .role:nth-child(even) { rotate: 1deg; }
+  .role.is-accent { background: var(--accent); color: var(--on-accent); rotate: -0.6deg; }
+  @media (max-width: 40rem) {
+    .roles { gap: 0.6rem; }
+    .role { box-shadow: 3px 3px 0 var(--line-strong); }
+  }
+
   .marquees {
     display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.6rem; overflow-x: clip;
     padding-block: 1rem; margin-bottom: clamp(2rem, 1rem + 4vw, 4rem);

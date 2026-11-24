@@ -1,0 +1,169 @@
+---
+import { Picture, getImage } from 'astro:assets';
+import SectionHeading from './SectionHeading.astro';
+import { events } from '~/data/events';
+import { pick, useTranslations, type Lang } from '~/i18n/utils';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+/** Proporção da moldura de cada formato (a foto é recortada com `object-fit`). */
+const ratio = { tall: 0.8, square: 1, wide: 16 / 9 } as const;
+
+const items = await Promise.all(
+  events.map(async (e) => {
+    const photos = await Promise.all(
+      e.photos.map(async (ph) => ({
+        ...ph,
+        ar: ratio[ph.shape],
+        full: (await getImage({ src: ph.src, width: Math.min(ph.src.width, 1800), format: 'webp' })).src,
+        widths: [320, 480, 720, 960].filter((w) => w <= ph.src.width),
+      })),
+    );
+    return { ...e, photos, sum: photos.reduce((s, p) => s + p.ar, 0) };
+  }),
+);
+---
+
+<section class="section events" id="events" aria-labelledby="events-title" data-section="events">
+  <div class="wrap">
+    <SectionHeading num="06" id="events-title" title={t('events.title')} accent={t('events.accent')} intro={t('events.intro')} />
+
+    <ol class="tickets" role="list">
+      {items.map((e, i) => (
+        <li class="ticket" style={`--ev: ${e.accent}`} data-reveal>
+          <article class="ticket-inner" aria-labelledby={`ev-${e.id}`}>
+            <!-- Canhoto do ingresso: decorativo (o mesmo conteúdo está no corpo). -->
+            <div class="stub" aria-hidden="true">
+              <span class="stub-num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="stub-label mono">{t('events.badge')} · {pick(e.role, lang)}</span>
+              <span class="barcode"></span>
+            </div>
+
+            <div class="body">
+              <div class="info">
+                <p class="meta mono">{pick(e.when, lang)} · {pick(e.where, lang)} · {pick(e.role, lang)}</p>
+                <h3 id={`ev-${e.id}`}>{e.name}</h3>
+                {e.edition && <p class="edition">{pick(e.edition, lang)}</p>}
+                <p class="text">{pick(e.text, lang)}</p>
+                <ul class="chip-list" role="list">
+                  {e.topics.map((tp) => <li class="chip">{pick(tp, lang)}</li>)}
+                </ul>
+              </div>
+
+              <ul class="strip" role="list" aria-label={`${t('events.photos')}: ${e.name}`} style={`--sum: ${e.sum}; --n: ${e.photos.length}`}>
+                {e.photos.map((ph) => (
+                  <li style={`--ar: ${ph.ar}`}>
+                    <button class="polaroid" type="button" data-enlarge data-full={ph.full}
+                      data-alt={pick(ph.alt, lang)} data-caption={ph.caption ? pick(ph.caption, lang) : ''}>
+                      <Picture src={ph.src} alt={pick(ph.alt, lang)} formats={['avif', 'webp']} widths={ph.widths}
+                        sizes="(min-width: 64rem) 24rem, (min-width: 48rem) 34vw, 60vw" loading="lazy" decoding="async"
+                        style={ph.focus ? `object-position: ${ph.focus}` : undefined} />
+                      <span class="sr-only">{t('detail.enlarge')}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .tickets { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(2rem, 1.2rem + 3vw, 3.5rem); }
+  .ticket:nth-child(odd) { rotate: -0.4deg; }
+  .ticket:nth-child(even) { rotate: 0.4deg; }
+
+  /* ----- ingresso: canhoto | corpo, com os "dentes" do picote ----- */
+  .ticket-inner {
+    --stub: 5.25rem; --notch: 0.95rem;
+    position: relative; display: grid; grid-template-columns: var(--stub) minmax(0, 1fr);
+    background: var(--surface); border: var(--border); border-radius: var(--radius-lg);
+    box-shadow: 8px 8px 0 var(--ev); overflow: clip;
+  }
+  .ticket-inner::before, .ticket-inner::after {
+    content: ''; position: absolute; z-index: 2; left: calc(var(--stub) - var(--notch));
+    width: calc(2 * var(--notch)); height: calc(2 * var(--notch)); border-radius: 50%;
+    background: var(--bg); border: var(--border);
+  }
+  .ticket-inner::before { top: calc(-1 * var(--notch) - 2px); }
+  .ticket-inner::after { bottom: calc(-1 * var(--notch) - 2px); }
+
+  .stub {
+    display: flex; flex-direction: column; align-items: center; gap: 1rem;
+    padding: 1.6rem 0.5rem 1.4rem; background: var(--ev); color: #fff;
+    border-right: 3px dashed color-mix(in oklab, var(--line-strong) 70%, transparent);
+  }
+  .stub-num { font-family: var(--font-comic); font-size: 2.2rem; letter-spacing: 0.04em; line-height: 1; }
+  .stub-label {
+    writing-mode: vertical-rl; rotate: 180deg; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap;
+  }
+  .barcode {
+    margin-top: auto; width: 2.4rem; height: 4.2rem; border-radius: 2px;
+    background: repeating-linear-gradient(0deg, #fff 0 2px, transparent 2px 4px, #fff 4px 5px, transparent 5px 8px);
+    opacity: 0.85;
+  }
+
+  /* Corpo: texto e tira de fotos. A tira é uma "linha justificada": cada foto
+     cresce na proporção da moldura, então todas ficam com a mesma altura. Se a
+     tira for estreita (poucas fotos em retrato), divide a linha com o texto. */
+  .body {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 1.6rem clamp(1.4rem, 1rem + 2vw, 2.6rem);
+    padding: clamp(1.3rem, 1rem + 1.5vw, 2.2rem);
+  }
+  .info { flex: 1 1 22rem; min-width: 0; display: grid; gap: 0.7rem; justify-items: start; }
+  .meta { font-size: 0.76rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-ink); font-weight: 600; }
+  h3 { font-size: var(--step-3); letter-spacing: -0.03em; }
+  .edition { font-family: var(--font-serif); font-style: italic; font-size: var(--step-1); color: var(--ink-soft); margin-top: -0.3rem; }
+  .text { max-width: 40rem; }
+
+  .strip {
+    flex: 0 1 calc(var(--sum) * 19rem + (var(--n) - 1) * 0.9rem); min-width: 0;
+    display: flex; gap: 0.9rem; list-style: none; padding: 0.3rem 0.5rem 0.6rem 0.2rem; margin: 0;
+  }
+  .strip li { flex: var(--ar) 1 0%; min-width: 0; }
+  .polaroid {
+    display: block; width: 100%; padding: 0.4rem 0.4rem 1.1rem; cursor: zoom-in;
+    background: #fffdf8; border: var(--border); border-radius: 6px;
+    box-shadow: 4px 4px 0 var(--line-strong); rotate: -1.2deg;
+    transition: rotate 0.25s var(--ease-out), translate 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+  }
+  .strip li:nth-child(even) .polaroid { rotate: 1.4deg; }
+  .strip li:nth-child(3n) .polaroid { rotate: -0.4deg; }
+  .polaroid:hover, .polaroid:focus-visible { rotate: 0deg; translate: -3px -3px; box-shadow: 7px 7px 0 var(--ev); }
+  .polaroid :global(picture) { display: block; }
+  .polaroid :global(img) {
+    width: 100%; height: auto; aspect-ratio: var(--ar); object-fit: cover; border-radius: 2px; background: #ddd;
+  }
+
+  /* ----- tablet: ingressos sem inclinação ----- */
+  @media (max-width: 63.99rem) {
+    .ticket:nth-child(n) { rotate: 0deg; }
+  }
+
+  /* ----- celular: canhoto vira faixa no topo; fotos em carrossel ----- */
+  @media (max-width: 47.99rem) {
+    .ticket-inner { grid-template-columns: minmax(0, 1fr); }
+    .ticket-inner::before, .ticket-inner::after { display: none; }
+    .stub {
+      flex-direction: row; justify-content: flex-start; gap: 0.9rem; padding: 0.8rem 1.1rem;
+      border-right: 0; border-bottom: 3px dashed color-mix(in oklab, var(--line-strong) 70%, transparent);
+    }
+    .stub-num { font-size: 1.6rem; }
+    .stub-label { writing-mode: horizontal-tb; rotate: 0deg; font-size: 0.72rem; }
+    .barcode { margin: 0 0 0 auto; width: 3.6rem; height: 1.6rem;
+      background: repeating-linear-gradient(90deg, #fff 0 2px, transparent 2px 4px, #fff 4px 5px, transparent 5px 8px); }
+    .strip {
+      flex: 1 1 100%; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+      margin-inline: calc(-1 * clamp(1.3rem, 1rem + 1.5vw, 2.2rem)); padding-inline: clamp(1.3rem, 1rem + 1.5vw, 2.2rem);
+      scroll-padding-inline: clamp(1.3rem, 1rem + 1.5vw, 2.2rem); scrollbar-width: none;
+    }
+    .strip::-webkit-scrollbar { display: none; }
+    .strip li { flex: none; width: calc(var(--ar) * 15rem); max-width: 78vw; scroll-snap-align: start; }
+  }
+</style>
