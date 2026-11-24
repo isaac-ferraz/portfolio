@@ -170,9 +170,10 @@ export const education = {
   ],
   courses: [
     { name: 'IT Essentials', by: 'Cisco Networking Academy', done: true },
+    { name: { pt: 'Fundamentos da Segurança da Informação', en: 'Information Security Fundamentals' }, by: 'Cisco Networking Academy', done: true },
+    { name: 'Claude Academy', by: 'Anthropic', done: false },
     { name: 'Linux Essentials', by: 'Cisco Networking Academy', done: false },
     { name: { pt: 'Formação em Machine Learning', en: 'Machine Learning track' }, by: 'Alura', done: false },
-    { name: { pt: 'Java Orientado a Objetos', en: 'Object-Oriented Java' }, by: 'Alura', done: false },
     { name: 'AWS Academy Learner Lab', by: 'Amazon Web Services', done: false },
   ] as { name: string | L; by: string; done: boolean }[],
   awards: [
