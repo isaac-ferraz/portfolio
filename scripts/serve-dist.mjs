@@ -1,11 +1,11 @@
-// Servidor estático mínimo do `dist/` em /portflio/, em primeiro plano, para os
+// Servidor estático mínimo do `dist/` em /portfolio/, em primeiro plano, para os
 // testes. (O `astro preview` do Astro 7 vai sozinho para segundo plano quando não
 // há terminal interativo — no CI e no Playwright isso parece um servidor que morreu.)
 import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import { extname, join, normalize } from 'node:path';
 
-const BASE = '/portflio/';
+const BASE = '/portfolio/';
 const ROOT = 'dist';
 const PORT = Number(process.env.PORT ?? 4321);
 const TYPES = {

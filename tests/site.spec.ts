@@ -44,7 +44,7 @@ test('movimento reduzido: GSAP não é baixado e tudo fica visível', async ({ b
   const page = await ctx.newPage();
   const scripts: string[] = [];
   page.on('request', (r) => r.resourceType() === 'script' && scripts.push(r.url()));
-  await page.goto('/portflio/');
+  await page.goto('/portfolio/');
   await page.waitForTimeout(1500);
   expect(scripts.some((s) => s.includes('motion'))).toBe(false);
   await expect(page.locator('[data-reveal]').first()).toBeVisible();
@@ -80,6 +80,6 @@ test('lightbox: abre, fecha com Esc e devolve o foco', async ({ page }) => {
 test('troca de idioma leva à mesma página no outro idioma', async ({ page }) => {
   await page.goto('projetos/api-dm/');
   await page.getByRole('link', { name: 'Read in English' }).click();
-  await expect(page).toHaveURL(/\/portflio\/en\/projects\/api-dm\/$/);
+  await expect(page).toHaveURL(/\/portfolio\/en\/projects\/api-dm\/$/);
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
 });

@@ -1,9 +1,9 @@
-// Todo link interno precisa passar pelo `base` (/portflio/): o site é servido
+// Todo link interno precisa passar pelo `base` (/portfolio/): o site é servido
 // num subcaminho do GitHub Pages e um "/algo" absoluto quebraria lá.
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
-const BASE = '/portflio/';
+const BASE = '/portfolio/';
 const ATTR = /\s(?:href|src|srcset|content|action|poster)="([^"]*)"/g;
 
 async function* walk(dir) {

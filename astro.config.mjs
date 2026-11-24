@@ -2,12 +2,12 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// O repositório é `isaac-ferraz/portflio`, servido pelo GitHub Pages em
-// https://isaac-ferraz.github.io/portflio/ — por isso todo link interno passa
+// O repositório é `isaac-ferraz/portfolio`, servido pelo GitHub Pages em
+// https://isaac-ferraz.github.io/portfolio/ — por isso todo link interno passa
 // pelo `base`. `scripts/check-base-links.mjs` confere isso depois do build.
 export default defineConfig({
   site: 'https://isaac-ferraz.github.io',
-  base: '/portflio',
+  base: '/portfolio',
   trailingSlash: 'always',
   build: { format: 'directory', inlineStylesheets: 'auto' },
   i18n: {

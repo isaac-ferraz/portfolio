@@ -3,7 +3,7 @@
 Portfólio de desenvolvedor full-stack, estudante de **Análise e Desenvolvimento de
 Sistemas** na **FATEC São José dos Campos — Prof. Jessen Vidal** (RA 1460482611003).
 
-- **No ar:** <https://isaac-ferraz.github.io/portflio/> (PT-BR) · <https://isaac-ferraz.github.io/portflio/en/> (EN)
+- **No ar:** <https://isaac-ferraz.github.io/portfolio/> (PT-BR) · <https://isaac-ferraz.github.io/portfolio/en/> (EN)
 - A versão anterior, em estilo Windows XP / Frutiger Aero e sem JavaScript, continua no histórico do git (até o commit `cb38054`).
 
 ## O que tem aqui
@@ -62,8 +62,8 @@ IP privado, a porta `:5432`, EXIF em alguma imagem ou um termo do `.confidential
 npm install
 npm run dev        # servidor de desenvolvimento
 npm run check      # astro check (tipos)
-npm run build      # build + guarda de confidencialidade + checagem dos links com /portflio/
-npm run preview    # serve o build em http://localhost:4321/portflio/
+npm run build      # build + guarda de confidencialidade + checagem dos links com /portfolio/
+npm run preview    # serve o build em http://localhost:4321/portfolio/
 npm run test:e2e   # Playwright + axe (rodar depois do build)
 ```
 
